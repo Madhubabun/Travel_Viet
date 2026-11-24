@@ -1,0 +1,257 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-sand: #fff7ee;
+  --color-sand-2: #f4ece1;
+  --color-line: #eae4dc;
+  --color-ocean: #1e6b7b;
+  --color-ocean-soft: #e3eff1;
+  --color-sage: #4a7c59;
+  --color-sage-soft: #e6efe8;
+  --color-coral: #d97757;
+  --color-coral-soft: #fbece6;
+  --color-gold: #b8912f;
+  --color-gold-soft: #f6efdc;
+  --color-aqua: #1fa698;
+  --color-aqua-soft: #d3f5f1;
+  --color-mango: #ff9f2e;
+  --color-mango-soft: #fff0d6;
+  --color-pink: #ff5c80;
+  --color-pink-soft: #ffe3ea;
+  --color-lime: #6fbf4e;
+  --color-lime-soft: #e2f8e0;
+  --color-sky: #3aa8db;
+  --color-sky-soft: #d9f1fb;
+  --color-ink: #1f292e;
+  --color-muted: #5c6b73;
+  --color-money: #2f9e44;
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --shadow-soft: 0 6px 18px rgb(31 41 46 / 0.1), inset 0 1px 0 rgb(255 255 255 / 0.9);
+  --shadow-lift: 0 18px 48px rgb(31 41 46 / 0.22);
+
+  --animate-sheet-up: sheet-up 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-fade-in: fade-in 200ms ease-out;
+  --animate-rise: rise 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-pop: pop 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  @keyframes sheet-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+}
+
+:root {
+  --sat: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
+  --sab: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
+  --tabbar-h: calc(64px + var(--sab));
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Soft tropical ambient light behind every screen */
+body {
+  background:
+    radial-gradient(circle at 8% 6%, #8fe6da 0, transparent 38%),
+    radial-gradient(circle at 96% 28%, #ffd09a 0, transparent 36%),
+    radial-gradient(circle at 12% 72%, #ffc0d0 0, transparent 34%),
+    radial-gradient(circle at 92% 92%, #b6eaa9 0, transparent 38%),
+    var(--color-sand);
+  background-attachment: fixed;
+}
+
+button,
+[role='button'] {
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+.scroll-area {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.pt-safe {
+  padding-top: var(--sat);
+}
+.pb-safe {
+  padding-bottom: var(--sab);
+}
+.pb-tabbar {
+  padding-bottom: calc(var(--tabbar-h) + 20px);
+}
+
+/* ---------- Spatial glass ---------- */
+.glass {
+  background: rgb(255 255 255 / 0.66);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgb(255 255 255 / 0.9);
+  box-shadow: 0 8px 22px rgb(31 41 46 / 0.1), inset 0 1px 0 #fff;
+}
+.glass-clear {
+  background: rgb(255 255 255 / 0.3);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  border: 1px solid rgb(255 255 255 / 0.72);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9), 0 8px 24px rgb(31 41 46 / 0.12);
+}
+.glass-solid {
+  background: rgb(255 255 255 / 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ---------- Puffy, raised surfaces. Colour comes from --p-* vars (see toneVars) ---------- */
+.puff {
+  color: var(--p-on, #fff);
+  background: linear-gradient(180deg, var(--p-from), var(--p-to));
+  box-shadow:
+    0 3px 0 var(--p-edge),
+    0 6px 14px color-mix(in srgb, var(--p-to) 38%, transparent),
+    inset 0 1px 0 rgb(255 255 255 / 0.42);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.puff:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 1px 0 var(--p-edge),
+    0 3px 8px color-mix(in srgb, var(--p-to) 30%, transparent),
+    inset 0 1px 0 rgb(255 255 255 / 0.42);
+}
+.key {
+  background: linear-gradient(180deg, #fff, #f6f0e7);
+  box-shadow: 0 3px 0 #e6dac9, 0 5px 10px rgb(31 41 46 / 0.07), inset 0 1px 0 #fff;
+  transition: transform 100ms ease, box-shadow 100ms ease;
+}
+.key:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #e6dac9, 0 2px 4px rgb(31 41 46 / 0.06), inset 0 1px 0 #fff;
+}
+
+.emoji {
+  display: inline-block;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 2px rgb(31 41 46 / 0.12));
+}
+
+/* ---------- Leaflet tweaks ---------- */
+.leaflet-container {
+  font-family: var(--font-sans);
+  background: #e9f1e4;
+}
+.leaflet-control-attribution {
+  font-size: 9px;
+  background: rgb(255 255 255 / 0.6) !important;
+  border-radius: 8px 0 0 0;
+}
+.tt-tiles {
+  /* soften OSM's default colours toward the coastal palette */
+  filter: saturate(0.82) brightness(1.04) contrast(0.96) hue-rotate(-6deg);
+}
+.leaflet-control-zoom {
+  display: none;
+}
+
+.tt-pin {
+  background: none;
+  border: none;
+}
+.tt-pin-body {
+  width: 26px;
+  height: 26px;
+  border-radius: 50% 50% 50% 4px;
+  transform: rotate(-45deg);
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--p-from), var(--p-to));
+  box-shadow: 0 5px 12px color-mix(in srgb, var(--p-to) 45%, transparent);
+  transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.tt-pin-body span {
+  transform: rotate(45deg);
+  color: var(--p-on, #fff);
+  font: 700 11px/1 var(--font-sans);
+}
+.tt-pin-body img {
+  transform: rotate(45deg);
+  width: 22px;
+  height: 22px;
+}
+.tt-pin.is-active .tt-pin-body {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border: 3px solid var(--p-to);
+  box-shadow: 0 10px 20px color-mix(in srgb, var(--p-to) 50%, transparent);
+}
+.tt-pin.is-dim {
+  opacity: 0.5;
+}
+
+.tt-me {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #2f7ae5;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 6px rgb(47 122 229 / 0.22);
+}
+
+.tt-drop {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-pink);
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 8px rgb(255 92 128 / 0.25);
+}

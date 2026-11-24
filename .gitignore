@@ -1,0 +1,28 @@
+# deps & builds
+node_modules
+dist
+dist-ssr
+*.local
+coverage
+
+# Android build output (the android/ project itself is committed)
+android/app/build
+android/build
+android/.gradle
+android/local.properties
+android/capacitor-cordova-android-plugins/build
+*.apk
+*.aab
+
+# signing keys never go in git
+*.jks
+*.keystore
+signing/
+github-secrets.txt
+
+# editor / OS
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+*.log
